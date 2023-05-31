@@ -164,7 +164,26 @@ static bool init(int argc, char *argv[])
 	/* init switch */
 	socketInitializeDefault();
 	nxlinkStdio();
-	parse_args(argc, argv);
+
+	FILE *fp = fopen("/switch/suika_cmd.ini", "rb");
+	if(fp) {
+		char buf[256] = {0};
+		char* argv2[10] = {"/switch/suika/suika.nro"};
+		int argc2 = 1;
+		fread(buf, sizeof(buf), 1, fp);
+		char *p = strtok(buf, " ");
+		while (p && argc2 < (int)(sizeof(argv2)/sizeof(char*)))
+		{
+			argv2[argc2++] = p;
+			p = strtok(0, " ");
+		}
+		argv2[argc2] = 0;
+		parse_args(argc2, argv2);
+		fclose(fp);
+	}
+	else {
+		parse_args(argc, argv);
+	}
 	
 	/* Initialize the SDL2. */
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0) {

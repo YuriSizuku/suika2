@@ -14,7 +14,7 @@ DEVKITPRO := $(subst \\,/,$(DEVKITPRO))
 include $(DEVKITPRO)/libnx/switch_rules
 
 APP_TITLE := $(TARGET)
-APP_VERSION := 12.1.0
+APP_VERSION := 12.5.0
 APP_AUTHOR := TABATA Keiichi & devseed
 APP_ICON := icon.jpg
 NROFLAGS += --icon=$(APP_ICON) --nacp=$(TARGET).nacp
